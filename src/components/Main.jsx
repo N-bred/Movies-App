@@ -4,16 +4,19 @@ import MovieList from './MovieList';
 import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
 import Attribution from './Attribution';
+import Theme from '../contexts/theme.context';
 
 const Main = () => {
    return (
       <div>
-         <TopBar />
-         <TabsCom />
-         <InputContainer />
-         <MovieList />
+         <Theme>
+            <TopBar />
+            <TabsCom />
+            <InputContainer />
+            <MovieList />
 
-         <Attribution />
+            <Attribution />
+         </Theme>
       </div>
    );
 };
