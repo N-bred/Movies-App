@@ -3,7 +3,7 @@ import TopBar from './TopBar';
 import MovieList from './MovieList';
 import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
-import MiniCard from './MiniCard';
+import MiniCardContainer from './MiniCardContainer';
 
 const Main = () => {
   return (
@@ -12,7 +12,7 @@ const Main = () => {
       <TabsCom />
       <InputContainer />
       <MovieList />
-      <MiniCard />
+      <MiniCardContainer />
     </div>
   );
 };

@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     position: 'absolute',
     top: 0,
     right: 0,
-    zIndex: '5000',
+    zIndex: '10',
     background: 'rgba(0,0,0,.3)',
 
     '&:hover': {
@@ -50,10 +50,14 @@ export default function Movie() {
 
   return (
     <Card className={classes.card}>
-      <IconButton aria-label="add to favorites" className={classes.favorite}>
+      <IconButton
+        aria-label="add to favorites"
+        className={classes.favorite}
+        onClick={() => alert('Hewwo')}
+      >
         <FavoriteIcon />
       </IconButton>
-      <CardActionArea onClick={() => alert('Hewwo')}>
+      <CardActionArea>
         <CardMedia
           className={classes.media}
           image="https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg"
