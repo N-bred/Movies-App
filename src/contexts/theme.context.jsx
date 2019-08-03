@@ -1,12 +1,10 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
+import useLocalStorageToggle from '../hooks/useLocalStorageToggle';
 
 export const Theme = createContext();
 
 const ThemeContext = ({ children }) => {
-  const [changed, setChanged] = useState(false);
-  const handleChange = () => {
-    setChanged(!changed);
-  };
+  const [changed, handleChange] = useLocalStorageToggle(false, 'theme');
 
   return (
     <Theme.Provider

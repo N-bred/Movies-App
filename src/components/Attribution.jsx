@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import blueLogo from '../img/svg/powered-by-square-blue.svg';
 import greenLogo from '../img/svg/powered-by-square-green.svg';
 import { IconButton } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/AttributionStyles';
+import useLocalStorageToggle from '../hooks/useLocalStorageToggle';
 
 export default function Attribution() {
-  const classes = styles();
+  const [show, handleShow] = useLocalStorageToggle(false, 'showAttribution');
+  const classes = styles(show)();
   const { changed } = useThemeValue();
-  const [show, setShow] = useState(true);
-
-  const handleShow = () => {
-    setShow(!show);
-  };
-
-  const animation = {
-    transform: show ? 'translateX(0) scale(1)' : 'translateX(-150%) scale(0)'
-  };
 
   return (
     <div className={classes.container}>
-      <div className={classes.containerImg} style={animation}>
+      <div className={classes.containerImg}>
         <a
           href="https://www.themoviedb.org/"
           target="_blank"
