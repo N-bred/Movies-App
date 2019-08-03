@@ -1,27 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Movie from './Movie';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 1200,
-    margin: '0 auto'
-  },
-  gridContainer: {
-    marginTop: '2.5rem',
-    [theme.breakpoints.down('sm')]: {
-      '& > div': {
-        maxWidth: '90%',
-        margin: '0 auto'
-      }
-    }
-  }
-}));
+import styles from './styles/MovieListStyles';
 
 const MovieList = () => {
-  const classes = useStyles();
+  const classes = styles();
   return (
     <div className={classes.root}>
       <Grid container spacing={5} className={classes.gridContainer}>

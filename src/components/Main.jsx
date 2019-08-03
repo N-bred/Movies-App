@@ -5,6 +5,7 @@ import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
 import Attribution from './Attribution';
 // import MiniCardContainer from './MiniCardContainer';
+// import DetailPage from './DetailPage';
 import { useThemeValue } from '../contexts/theme.context';
 
 const Main = () => {

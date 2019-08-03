@@ -1,41 +1,18 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import {
+  Input,
+  InputLabel,
+  MenuItem,
+  FormHelperText,
+  FormControl,
+  Select
+} from '@material-ui/core';
 import { useThemeValue } from '../contexts/theme.context';
+import styles from './styles/InputStyles';
 
 export default function SimpleSelect() {
   const { changed } = useThemeValue();
-  const useStyles = makeStyles(theme => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      '& div, & p, & label': {
-        fontSize: '1.6rem',
-        color: changed && '#fff'
-      }
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2)
-    },
-    item: {
-      fontSize: '1.6rem'
-    },
-    label: {
-      color: changed
-        ? `${theme.palette.secondary.main} !important`
-        : `${theme.palette.primary.main} !important`
-    }
-  }));
-  const classes = useStyles();
+  const classes = styles(changed)();
   const [values, setValues] = React.useState({
     genre: ''
   });

@@ -1,31 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import { List, ListItem, Divider } from '@material-ui/core';
 import MiniCard from './MiniCard';
 import { useThemeValue } from '../contexts/theme.context';
+import styles from './styles/MiniCardContainerStyles';
 
 export default function MiniCardContainer() {
   const { changed, transition, backgroundMain } = useThemeValue();
-
-  const useStyles = makeStyles(theme => ({
-    root: {
-      width: '100%',
-      maxWidth: 400,
-      backgroundColor: changed
-        ? backgroundMain
-        : theme.palette.background.paper,
-      height: '50rem',
-      transition,
-      overflowY: 'scroll'
-    },
-    divider: {
-      marginLeft: 0,
-      backgroundColor: changed && theme.palette.secondary.main
-    }
-  }));
-  const classes = useStyles();
+  const classes = styles(changed, transition, backgroundMain)();
 
   return (
     <List className={classes.root}>

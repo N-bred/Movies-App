@@ -1,15 +1,15 @@
 import React, { createContext, useState, useContext } from 'react';
 
-export const ThemeContext = createContext();
+export const Theme = createContext();
 
-const Theme = ({ children }) => {
+const ThemeContext = ({ children }) => {
   const [changed, setChanged] = useState(false);
   const handleChange = () => {
     setChanged(!changed);
   };
 
   return (
-    <ThemeContext.Provider
+    <Theme.Provider
       value={{
         changed,
         handleChange,
@@ -19,10 +19,9 @@ const Theme = ({ children }) => {
       }}
     >
       {children}
-    </ThemeContext.Provider>
+    </Theme.Provider>
   );
 };
 
-export const useThemeValue = () => useContext(ThemeContext);
-
-export default Theme;
+export const useThemeValue = () => useContext(Theme);
+export default ThemeContext;

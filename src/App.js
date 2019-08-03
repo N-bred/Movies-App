@@ -1,26 +1,19 @@
 import React from 'react';
 import Main from './components/Main';
-import Theme from './contexts/theme.context';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import ThemeContext from './contexts/theme.context';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from './MuiTheme';
 
-const theme = createMuiTheme({
-  palette: {
-    secondary: {
-      main: '#f6b906'
-    }
-  }
-});
-
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Theme>
+      <ThemeContext>
         <MuiThemeProvider theme={theme}>
           <Main />
         </MuiThemeProvider>
-      </Theme>
+      </ThemeContext>
     </div>
   );
-}
+};
 
 export default App;

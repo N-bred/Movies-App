@@ -1,62 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  IconButton
+} from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import IconButton from '@material-ui/core/IconButton';
 import { useThemeValue } from '../contexts/theme.context';
+import styles from './styles/MovieStyles';
 
 export default function Movie() {
   const { changed, transition, backgroundPaper } = useThemeValue();
-  const useStyles = makeStyles({
-    card: {
-      maxWidth: '100%',
-      position: 'relative',
-      transition,
-      background: changed && backgroundPaper
-    },
-    media: {
-      height: 250
-    },
-    title: {
-      fontSize: '2.2rem',
-      color: changed && '#fff'
-    },
-    content: {
-      fontSize: '1.5rem',
-      color: changed && '#fff'
-    },
-    button: {
-      fontSize: '1.4rem'
-    },
-    favorite: {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      zIndex: '10',
-      background: 'rgba(0,0,0,.3)',
-
-      '&:hover': {
-        background: 'rgba(0, 0, 0, .5)'
-      },
-
-      '& svg path': {
-        fill: '#fff'
-        //   fill: '#de4536'
-      }
-    },
-    cardActions: {
-      borderTop: changed && '1px solid rgba(255,255,255,.4)',
-      background: changed && backgroundPaper,
-      transition
-    }
-  });
-  const classes = useStyles();
+  const classes = styles(changed, transition, backgroundPaper)();
 
   return (
     <Card className={classes.card}>
