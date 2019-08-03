@@ -4,21 +4,24 @@ import MovieList from './MovieList';
 import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
 import Attribution from './Attribution';
-import Theme from '../contexts/theme.context';
+import { useThemeValue } from '../contexts/theme.context';
 
 const Main = () => {
-   return (
-      <div>
-         <Theme>
-            <TopBar />
-            <TabsCom />
-            <InputContainer />
-            <MovieList />
-
-            <Attribution />
-         </Theme>
-      </div>
-   );
+  const { changed, transition, backgroundMain } = useThemeValue();
+  return (
+    <div
+      style={{
+        transition,
+        background: changed && backgroundMain
+      }}
+    >
+      <TopBar />
+      <TabsCom />
+      <InputContainer />
+      <MovieList />
+      <Attribution />
+    </div>
+  );
 };
 
 export default Main;
