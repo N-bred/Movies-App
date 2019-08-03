@@ -9,52 +9,58 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
-
-const useStyles = makeStyles({
-  card: {
-    maxWidth: '100%',
-    position: 'relative'
-  },
-  media: {
-    height: 250
-  },
-  title: {
-    fontSize: '2.2rem'
-  },
-  content: {
-    fontSize: '1.5rem'
-  },
-  button: {
-    fontSize: '1.4rem'
-  },
-  favorite: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: '10',
-    background: 'rgba(0,0,0,.3)',
-
-    '&:hover': {
-      background: 'rgba(0, 0, 0, .5)'
-    },
-
-    '& svg path': {
-      fill: '#fff'
-      //   fill: '#de4536'
-    }
-  }
-});
+import { useThemeValue } from '../contexts/theme.context';
 
 export default function Movie() {
+  const { changed, transition, backgroundPaper } = useThemeValue();
+  const useStyles = makeStyles({
+    card: {
+      maxWidth: '100%',
+      position: 'relative',
+      transition,
+      background: changed && backgroundPaper
+    },
+    media: {
+      height: 250
+    },
+    title: {
+      fontSize: '2.2rem',
+      color: changed && '#fff'
+    },
+    content: {
+      fontSize: '1.5rem',
+      color: changed && '#fff'
+    },
+    button: {
+      fontSize: '1.4rem'
+    },
+    favorite: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      zIndex: '10',
+      background: 'rgba(0,0,0,.3)',
+
+      '&:hover': {
+        background: 'rgba(0, 0, 0, .5)'
+      },
+
+      '& svg path': {
+        fill: '#fff'
+        //   fill: '#de4536'
+      }
+    },
+    cardActions: {
+      borderTop: changed && '1px solid rgba(255,255,255,.4)',
+      background: changed && backgroundPaper,
+      transition
+    }
+  });
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
-      <IconButton
-        aria-label="add to favorites"
-        className={classes.favorite}
-        onClick={() => alert('Hewwo')}
-      >
+      <IconButton aria-label="add to favorites" className={classes.favorite}>
         <FavoriteIcon />
       </IconButton>
       <CardActionArea>
@@ -83,10 +89,10 @@ export default function Movie() {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className={classes.cardActions}>
         <Button
           size="large"
-          color="primary"
+          color={changed ? 'secondary' : 'primary'}
           className={classes.button}
           fullWidth
         >
