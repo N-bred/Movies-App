@@ -9,13 +9,13 @@ import Attribution from './Attribution';
 import LoadingSpinner from './LoadingSpinner';
 import { makeRequest } from '../utils';
 import { Theme } from '../contexts/theme.context';
-
-const API =
-  'https://api.themoviedb.org/3/discover/movie?api_key=6757aeed357f7728b398dc6c01d4c4e0';
+import { API_KEY, discoverEndpoint, genreEndpoint } from '../API';
 
 class Main extends Component {
   state = {
     movies: [],
+    genres: [],
+    selectedGenre: '',
     loading: false
   };
 
@@ -23,9 +23,16 @@ class Main extends Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    const request = makeRequest(API);
-    request
+    const movieRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
+    movieRequest
       .then(data => this.setState({ movies: data.results }))
+      .catch(err => console.log(err));
+
+    const genresRequest = makeRequest(
+      `${genreEndpoint}${API_KEY}&language=en-US`
+    );
+    genresRequest
+      .then(data => this.setState({ genres: data.genres }))
       .catch(err => console.log(err));
 
     setTimeout(() => {
@@ -33,9 +40,25 @@ class Main extends Component {
     }, 3000);
   }
 
+  selectGenre = value => {
+    this.setState({ selectedGenre: value, loading: true });
+
+    const genreRequest = makeRequest(
+      `${discoverEndpoint}${API_KEY}&sort_by=popularity.desc&with_genres=${value}`
+    );
+
+    genreRequest
+      .then(data => this.setState(() => ({ movies: data.results })))
+      .catch(err => console.log(err));
+
+    setTimeout(() => {
+      this.setState(() => ({ loading: false }));
+    }, 3000);
+  };
+
   render() {
     const { changed, backgroundMain, transition } = this.context;
-    const { movies, loading } = this.state;
+    const { movies, loading, genres, selectedGenre } = this.state;
     return (
       <div
         style={{
@@ -45,7 +68,11 @@ class Main extends Component {
       >
         <TopBar />
         <TabsCom />
-        <InputContainer />
+        <InputContainer
+          genres={genres}
+          selectGenre={this.selectGenre}
+          selectedGenre={selectedGenre}
+        />
         {loading ? <LoadingSpinner /> : <MovieList movies={movies} />}
         <Attribution />
       </div>

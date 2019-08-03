@@ -4,13 +4,13 @@ import Input from './Input';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/InputContainerStyles';
 
-const InputContainer = () => {
+const InputContainer = ({ genres, selectGenre }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper)();
 
   return (
     <Paper square className={classes.root}>
-      <Input />
+      <Input genres={genres} selectGenre={selectGenre} />
     </Paper>
   );
 };

@@ -10,7 +10,7 @@ import {
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/InputStyles';
 
-export default function SimpleSelect() {
+export default function SimpleSelect({ genres, selectGenre }) {
   const { changed } = useThemeValue();
   const classes = styles(changed)();
   const [values, setValues] = React.useState({
@@ -22,6 +22,8 @@ export default function SimpleSelect() {
       ...oldValues,
       [event.target.name]: event.target.value
     }));
+
+    selectGenre(event.target.value);
   }
 
   return (
@@ -42,15 +44,12 @@ export default function SimpleSelect() {
           <MenuItem className={classes.item} value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem className={classes.item} value={10}>
-            Ten
-          </MenuItem>
-          <MenuItem className={classes.item} value={20}>
-            Twenty
-          </MenuItem>
-          <MenuItem className={classes.item} value={30}>
-            Thirty
-          </MenuItem>
+
+          {genres.map(genre => (
+            <MenuItem key={genre.id} className={classes.item} value={genre.id}>
+              {genre.name}
+            </MenuItem>
+          ))}
         </Select>
         <FormHelperText>Choose a Genre!</FormHelperText>
       </FormControl>
