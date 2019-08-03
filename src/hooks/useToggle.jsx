@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 const useToggle = val => {
   const [value, setValue] = useState(val);
-  const handleChange = () => setValue(!value);
+  const handleChange = () => {
+    setValue(!value);
+  };
   return [value, handleChange];
 };
 

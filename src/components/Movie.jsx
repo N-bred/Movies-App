@@ -13,7 +13,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/MovieStyles';
 
-export default function Movie() {
+export default function Movie({ title, posterUrl, description }) {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper)();
 
@@ -25,8 +25,8 @@ export default function Movie() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg"
-          title="Contemplative Reptile"
+          image={`https://image.tmdb.org/t/p/w500${posterUrl}`}
+          title={title}
         />
         <CardContent>
           <Typography
@@ -35,7 +35,7 @@ export default function Movie() {
             component="h2"
             className={classes.title}
           >
-            Lizard
+            {title}
           </Typography>
           <Typography
             variant="body2"
@@ -43,8 +43,7 @@ export default function Movie() {
             component="p"
             className={classes.content}
           >
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
