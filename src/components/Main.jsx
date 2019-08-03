@@ -4,6 +4,7 @@ import MovieList from './MovieList';
 import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
 import Attribution from './Attribution';
+// import MiniCardContainer from './MiniCardContainer';
 import { useThemeValue } from '../contexts/theme.context';
 
 const Main = () => {

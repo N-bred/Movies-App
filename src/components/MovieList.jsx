@@ -9,11 +9,6 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 1200,
     margin: '0 auto'
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
-  },
   gridContainer: {
     marginTop: '2.5rem',
     [theme.breakpoints.down('sm')]: {
