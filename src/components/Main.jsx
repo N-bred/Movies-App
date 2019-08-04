@@ -24,7 +24,8 @@ class Main extends Component {
       genres: [],
       selectedGenre: '',
       loading: false,
-      showNotFound: false
+      showNotFound: false,
+      showingMiniCards: false
     };
     this._typingTimeout = 0;
   }
@@ -73,7 +74,9 @@ class Main extends Component {
     if (e.target.value.length <= 2) {
       const movieRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
       movieRequest
-        .then(data => this.setState({ movies: data.results }))
+        .then(data =>
+          this.setState({ movies: data.results, showNotFound: false })
+        )
         .catch(err => console.log(err));
     }
 
@@ -101,9 +104,19 @@ class Main extends Component {
     }, 2500);
   };
 
+  showMiniCards = () => {
+    this.setState({ showingMiniCards: !this.state.showingMiniCards });
+  };
   render() {
     const { changed, backgroundMain, transition } = this.context;
-    const { movies, loading, genres, selectedGenre, showNotFound } = this.state;
+    const {
+      movies,
+      loading,
+      genres,
+      selectedGenre,
+      showNotFound,
+      showingMiniCards
+    } = this.state;
     return (
       <div
         style={{
@@ -111,12 +124,18 @@ class Main extends Component {
           background: changed && backgroundMain
         }}
       >
-        <TopBar searchMovie={this.searchMovie} />
-        <MiniCardContainer
-          loading={loading}
-          movies={movies}
-          showErrorNotFound={showNotFound}
+        <TopBar
+          searchMovie={this.searchMovie}
+          showMiniCards={this.showMiniCards}
         />
+        {showingMiniCards && (
+          <MiniCardContainer
+            loading={loading}
+            movies={movies}
+            showErrorNotFound={showNotFound}
+          />
+        )}
+
         <TabsCom />
         <InputContainer
           genres={genres}

@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/TopBarStyles';
 
-const TopBar = ({ searchMovie }) => {
+const TopBar = ({ searchMovie, showMiniCards }) => {
   const { changed, handleChange, transition } = useThemeValue();
   const classes = styles(transition)();
 
@@ -47,6 +47,8 @@ const TopBar = ({ searchMovie }) => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
+              onFocus={showMiniCards}
+              onBlur={showMiniCards}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
