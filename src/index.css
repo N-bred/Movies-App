@@ -18,11 +18,11 @@ body {
 
 body {
   font-size: 1.6rem;
-  overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
 }
 
-#root {
+#root,
+body {
   overflow-x: hidden;
   overflow-y: overlay;
 }
