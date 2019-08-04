@@ -23,7 +23,7 @@ const styles = (changed, transition, backgroundPaper, posterUrl, marked) => {
     },
     title: {
       fontSize: '3.5rem',
-      color: changed && theme.palette.secondary.main
+      color: changed ? theme.palette.secondary.main : theme.palette.primary.main
     },
     pos: {
       margin: ' 0 0 1.5rem 0',

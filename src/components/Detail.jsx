@@ -112,7 +112,12 @@ class Detail extends PureComponent {
   };
 
   render() {
-    const { changed, backgroundMain, transition } = this.context;
+    const {
+      changed,
+      backgroundMain,
+      transition,
+      backgroundLight
+    } = this.context;
     const {
       movies,
       loading,
@@ -127,7 +132,7 @@ class Detail extends PureComponent {
       <div
         style={{
           transition,
-          background: changed && backgroundMain,
+          background: changed ? backgroundMain : backgroundLight,
           minHeight: '100vh',
           overflow: 'hidden'
         }}

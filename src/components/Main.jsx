@@ -91,7 +91,12 @@ class Main extends PureComponent {
     this.setState({ showingMiniCards: val });
   };
   render() {
-    const { changed, backgroundMain, transition } = this.context;
+    const {
+      changed,
+      backgroundMain,
+      transition,
+      backgroundLight
+    } = this.context;
     const {
       movies,
       loading,
@@ -104,7 +109,7 @@ class Main extends PureComponent {
       <div
         style={{
           transition,
-          background: changed && backgroundMain
+          background: changed ? backgroundMain : backgroundLight
         }}
       >
         <TopBar

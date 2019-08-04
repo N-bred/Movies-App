@@ -5,10 +5,10 @@ const defaultTheme = createMuiTheme();
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#3f51b5'
+      main: '#9423a8'
     },
     secondary: {
-      main: '#f6b906'
+      main: '#00f1f7'
     }
   },
   mixins: {

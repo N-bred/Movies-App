@@ -12,8 +12,10 @@ const ThemeContext = ({ children }) => {
         changed,
         handleChange,
         transition: 'background .3s ease-in',
-        backgroundMain: '#444',
-        backgroundPaper: '#5f5f5f'
+        backgroundMain: '#121212',
+        backgroundLight: '#efefef',
+        backgroundPaper: '#212121',
+        topBar: '#00b1b8'
       }}
     >
       {children}

@@ -124,7 +124,12 @@ class Genre extends PureComponent {
     this.setState({ showingMiniCards: val || !this.state.showingMiniCards });
   };
   render() {
-    const { changed, backgroundMain, transition } = this.context;
+    const {
+      changed,
+      backgroundMain,
+      transition,
+      backgroundLight
+    } = this.context;
     const {
       movies,
       loading,
@@ -138,7 +143,7 @@ class Genre extends PureComponent {
       <div
         style={{
           transition,
-          background: changed && backgroundMain,
+          background: changed ? backgroundMain : backgroundLight,
           minHeight: '100vh'
         }}
       >

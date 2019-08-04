@@ -1,11 +1,15 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
 
-const styles = transition => {
+const styles = (changed, transition, topBar) => {
   return makeStyles(theme => ({
     root: {
       flexGrow: 1,
       position: 'relative',
-      zIndex: 6000
+      zIndex: 6000,
+
+      '& header': {
+        background: changed ? topBar : theme.palette.primary.main
+      }
     },
 
     title: {
@@ -57,7 +61,12 @@ const styles = transition => {
     },
     label: {
       '& span': {
-        fontSize: '1.6rem'
+        fontSize: '1.6rem',
+        '& span[class="MuiIconButton-label"]': {
+          color: !changed
+            ? theme.palette.secondary.main
+            : theme.palette.primary.main
+        }
       }
     },
     toolbar: theme.mixins.toolbar,

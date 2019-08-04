@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import {
   AppBar,
   Toolbar,
-  Typography,
   InputBase,
   FormGroup,
   FormControlLabel,
@@ -12,10 +11,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/TopBarStyles';
 import { withRouter } from 'react-router-dom';
+import blueLogo from '../img/logo/blue.png';
+import purpleLogo from '../img/logo/purple.png';
 
 const TopBar = ({ searchMovie, showMiniCards, history }) => {
-  const { changed, handleChange, transition } = useThemeValue();
-  const classes = styles(transition)();
+  const { changed, handleChange, transition, topBar } = useThemeValue();
+  const classes = styles(changed, transition, topBar)();
 
   const handleRedirectHome = () => {
     history.push('/');
@@ -27,20 +28,14 @@ const TopBar = ({ searchMovie, showMiniCards, history }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="fixed"
-        className={classes.appBar}
-        color={changed ? 'secondary' : 'primary'}
-      >
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbarTop}>
-          <Typography
-            className={classes.title}
-            variant="h4"
-            noWrap
+          <img
+            src={!changed ? blueLogo : purpleLogo}
+            alt="Cyber Movies Logo"
             onClick={handleRedirectHome}
-          >
-            Movies!
-          </Typography>
+            style={{ cursor: 'pointer' }}
+          />
 
           <FormGroup row className={classes.switch}>
             <FormControlLabel
