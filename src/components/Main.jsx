@@ -89,7 +89,7 @@ class Main extends Component {
   };
 
   showMiniCards = val => {
-    this.setState({ showingMiniCards: val || !this.state.showingMiniCards });
+    this.setState({ showingMiniCards: val });
   };
   render() {
     const { changed, backgroundMain, transition } = this.context;

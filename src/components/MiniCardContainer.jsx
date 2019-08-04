@@ -10,7 +10,8 @@ export default function MiniCardContainer({
   loading,
   movies,
   showErrorNotFound,
-  showMiniCards
+  showMiniCards,
+  selectMovie
 }) {
   const { changed, transition, backgroundMain } = useThemeValue();
   const classes = styles(changed, transition, backgroundMain)();
@@ -19,7 +20,7 @@ export default function MiniCardContainer({
   };
 
   return (
-    <List className={classes.root} onMouseOver={handleMouseOver}>
+    <List className={classes.root} onMouseOver={handleMouseOver} onMouseLeave={() => showMiniCards(false)}>
       {loading ? (
         <LoadingSpinner small />
       ) : showErrorNotFound ? (
@@ -37,6 +38,8 @@ export default function MiniCardContainer({
                 posterUrl={movie.poster_path}
                 id={movie.id}
                 description={shortenText(movie.overview, 100)}
+                selectMovie={selectMovie}
+                handleMouseOver={handleMouseOver}
               />
             </ListItem>
             <Divider

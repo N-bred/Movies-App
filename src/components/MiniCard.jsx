@@ -9,11 +9,21 @@ import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/MiniCardStyles';
 import { withRouter } from 'react-router-dom';
 
-const MiniCard = ({ title, posterUrl, description, history, id }) => {
+const MiniCard = ({
+  title,
+  posterUrl,
+  description,
+  history,
+  id,
+  selectMovie,
+  handleMouseOver
+}) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper, posterUrl)();
   const handlePushRoute = () => {
+    handleMouseOver();
     history.push(`/movie/${id}`);
+    selectMovie(id);
   };
   return (
     <Card className={classes.card}>

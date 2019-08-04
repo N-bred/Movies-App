@@ -25,10 +25,12 @@ class Detail extends Component {
     super(props);
     this.state = {
       movies: [],
+      moviesDefault: [],
       selectedGenre: '',
       loading: false,
       showNotFound: false,
-      showingMiniCards: false
+      showingMiniCards: false,
+      firstLoading: false
     };
     this._typingTimeout = 0;
   }
@@ -36,7 +38,7 @@ class Detail extends Component {
   static contextType = Theme;
 
   componentDidMount() {
-    this.setState(() => ({ loading: true }));
+    this.setState(() => ({ firstLoading: true }));
 
     const { params } = this.props.match;
     const movieRequest = makeRequest(
@@ -46,8 +48,13 @@ class Detail extends Component {
       .then(data => this.setState({ movies: data }))
       .catch(err => console.log(err));
 
+    const movieDefaultRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
+    movieDefaultRequest
+      .then(data => this.setState({ moviesDefault: data.results }))
+      .catch(err => console.log(err));
+
     setTimeout(() => {
-      this.setState(() => ({ loading: false }));
+      this.setState(() => ({ firstLoading: false }));
     }, 3000);
   }
 
@@ -59,7 +66,7 @@ class Detail extends Component {
       const movieRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
       movieRequest
         .then(data =>
-          this.setState({ movies: data.results, showNotFound: false })
+          this.setState({ moviesDefault: data.results, showNotFound: false })
         )
         .catch(err => console.log(err));
     }
@@ -73,7 +80,7 @@ class Detail extends Component {
         .then(data => {
           if (data.results.length > 1) {
             this.setState(() => ({
-              movies: data.results,
+              moviesDefault: data.results,
               showNotFound: false
             }));
           } else {
@@ -82,15 +89,38 @@ class Detail extends Component {
         })
         .catch(err => console.log(err));
     }
+
+    this._typingTimeout = setTimeout(() => {
+      this.setState(() => ({ loading: false }));
+    }, 2500);
   };
 
-  showMiniCards = () => {
-    this.setState({ showingMiniCards: !this.state.showingMiniCards });
+  showMiniCards = val => {
+    this.setState({ showingMiniCards: val });
+  };
+
+  selectMovie = id => {
+    this.setState(() => ({ firstLoading: true }));
+    const movieRequest = makeRequest(`${movieDetailEndpoint}${id}?${API_KEY}`);
+    movieRequest
+      .then(data => this.setState({ movies: data }))
+      .catch(err => console.log(err));
+
+    setTimeout(() => {
+      this.setState(() => ({ firstLoading: false }));
+    }, 3000);
   };
 
   render() {
     const { changed, backgroundMain, transition } = this.context;
-    const { movies, loading, showNotFound, showingMiniCards } = this.state;
+    const {
+      movies,
+      loading,
+      showNotFound,
+      showingMiniCards,
+      moviesDefault,
+      firstLoading
+    } = this.state;
     const { countries: countriesFB, genres: genresFB } = this.props;
 
     return (
@@ -109,14 +139,16 @@ class Detail extends Component {
         {showingMiniCards && (
           <MiniCardContainer
             loading={loading}
-            movies={movies}
+            movies={moviesDefault}
             showErrorNotFound={showNotFound}
+            showMiniCards={this.showMiniCards}
+            selectMovie={this.selectMovie}
           />
         )}
 
         <TabsCom />
 
-        {loading ? (
+        {firstLoading ? (
           <LoadingSpinner />
         ) : (
           <DetailPage

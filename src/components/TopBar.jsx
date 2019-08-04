@@ -57,8 +57,7 @@ const TopBar = ({ searchMovie, showMiniCards, history }) => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              onFocus={showMiniCards}
-              onBlur={showMiniCards}
+              onFocus={() => showMiniCards(true)}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
