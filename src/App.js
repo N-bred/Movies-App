@@ -12,7 +12,7 @@ import theme from './MuiTheme';
 const App = () => {
   return (
     <div className="App">
-      <HashRouter>
+      <HashRouter basename="/">
         <ThemeContext>
           <MuiThemeProvider theme={theme}>
             <FavoritesContext>
