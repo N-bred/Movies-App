@@ -38,7 +38,7 @@ const styles = (changed, transition, backgroundPaper, posterUrl) => {
     paper: {
       maxWidth: 1200,
       display: 'flex',
-      minHeight: '60vh',
+      minHeight: '80vh',
       margin: '2.5rem auto',
       borderRadius: 4
     },

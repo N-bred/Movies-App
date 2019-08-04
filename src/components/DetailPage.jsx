@@ -13,8 +13,9 @@ import {
 } from '@material-ui/core';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/DetailPageStyles';
+import { withRouter } from 'react-router-dom';
 
-export default function SimpleCard({
+const DetailPage = ({
   title,
   tagline,
   date,
@@ -25,8 +26,9 @@ export default function SimpleCard({
   revenue,
   genres,
   posterUrl,
-  imdbId
-}) {
+  imdbId,
+  history
+}) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper, posterUrl)();
 
@@ -118,7 +120,11 @@ export default function SimpleCard({
         </CardContent>
         <CardActions className={classes.cardActions}>
           {genres.map(genre => (
-            <Button key={genre.name} size="small">
+            <Button
+              key={genre.name}
+              size="small"
+              onClick={() => history.push(`/genre/${genre.id}`)}
+            >
               {genre.name}
             </Button>
           ))}
@@ -136,4 +142,6 @@ export default function SimpleCard({
       </Card>
     </Paper>
   );
-}
+};
+
+export default withRouter(DetailPage);
