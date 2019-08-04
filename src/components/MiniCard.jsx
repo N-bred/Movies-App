@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Card,
   CardActionArea,
@@ -15,13 +15,14 @@ const MiniCard = ({
   description,
   history,
   id,
-  selectMovie,
-  handleMouseOver
+  selectMovie
 }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
-  const classes = styles(changed, transition, backgroundPaper, posterUrl)();
+
+  const poster = () => posterUrl || false;
+
+  const classes = styles(changed, transition, backgroundPaper, poster())();
   const handlePushRoute = () => {
-    handleMouseOver();
     history.push(`/movie/${id}`);
     if (selectMovie) {
       selectMovie(id);
@@ -55,4 +56,4 @@ const MiniCard = ({
   );
 };
 
-export default withRouter(MiniCard);
+export default withRouter(memo(MiniCard));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Input from './Input';
 import { useThemeValue } from '../contexts/theme.context';
@@ -15,4 +15,4 @@ const InputContainer = ({ genres, selectGenre }) => {
   );
 };
 
-export default InputContainer;
+export default memo(InputContainer);

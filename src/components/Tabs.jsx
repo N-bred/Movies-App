@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Paper, Tabs, Tab } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SearchIcon from '@material-ui/icons/Search';
@@ -40,4 +40,4 @@ const TabsCom = ({ history, location }) => {
     </Paper>
   );
 };
-export default withRouter(TabsCom);
+export default withRouter(memo(TabsCom));

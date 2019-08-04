@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Typography } from '@material-ui/core';
 import TopBar from './TopBar';
 import MovieList from './MovieList';
@@ -17,7 +17,7 @@ import {
   searchEndpoint
 } from '../API';
 
-class Genre extends Component {
+class Genre extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -133,6 +133,7 @@ class Genre extends Component {
       showingMiniCards,
       selectedGenre
     } = this.state;
+
     return (
       <div
         style={{

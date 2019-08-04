@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import Movie from './Movie';
 import styles from './styles/MovieListStyles';
@@ -8,6 +8,7 @@ import { useThemeValue } from '../contexts/theme.context';
 const MovieList = ({ movies, showErrorNotFound }) => {
   const { changed } = useThemeValue();
   const classes = styles(changed)();
+
   return (
     <div className={classes.root}>
       {showErrorNotFound ? (
@@ -42,4 +43,4 @@ const MovieList = ({ movies, showErrorNotFound }) => {
     </div>
   );
 };
-export default MovieList;
+export default memo(MovieList);

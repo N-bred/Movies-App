@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import {
   Card,
   CardActionArea,
@@ -90,4 +90,5 @@ const Movie = ({ title, posterUrl, description, history, id, movie }) => {
     </Card>
   );
 };
-export default withRouter(Movie);
+
+export default withRouter(memo(Movie));

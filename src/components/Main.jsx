@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TopBar from './TopBar';
 import MovieList from './MovieList';
 import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
 import Attribution from './Attribution';
 import MiniCardContainer from './MiniCardContainer';
-// import DetailPage from './DetailPage';
 import LoadingSpinner from './LoadingSpinner';
 import { makeRequest } from '../utils';
 import { Theme } from '../contexts/theme.context';
@@ -16,7 +15,7 @@ import {
   searchEndpoint
 } from '../API';
 
-class Main extends Component {
+class Main extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,6 +99,7 @@ class Main extends Component {
       showNotFound,
       showingMiniCards
     } = this.state;
+
     return (
       <div
         style={{

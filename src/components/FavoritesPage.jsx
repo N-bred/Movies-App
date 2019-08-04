@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Typography } from '@material-ui/core';
 import TopBar from './TopBar';
 import MovieList from './MovieList';
@@ -10,7 +10,7 @@ import { makeRequest } from '../utils';
 import { Theme } from '../contexts/theme.context';
 import { API_KEY, discoverEndpoint, searchEndpoint } from '../API';
 
-class FavoritesPage extends Component {
+class FavoritesPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -101,6 +101,7 @@ class FavoritesPage extends Component {
       loadingSearchMovies,
       showFavoriteNotFound
     } = this.state;
+
     return (
       <div
         style={{

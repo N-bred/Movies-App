@@ -33,7 +33,10 @@ const styles = (changed, transition, backgroundPaper, posterUrl, marked) => {
     },
     background: {
       flex: '0 0 30%',
-      background: `url(https://image.tmdb.org/t/p/w500/${posterUrl}) no-repeat`,
+      background:
+        posterUrl === false
+          ? 'transparent'
+          : `url(https://image.tmdb.org/t/p/w500${posterUrl}) no-repeat`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       borderRadius: 4,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import {
   List,
   ListItem,
@@ -42,11 +42,13 @@ const DetailPage = ({
 
   const [marked, setMarked] = useState(initialValue);
 
+  const poster = () => posterUrl || false;
+
   const classes = styles(
     changed,
     transition,
     backgroundPaper,
-    posterUrl,
+    poster(),
     marked
   )();
 
@@ -183,4 +185,4 @@ const DetailPage = ({
   );
 };
 
-export default withRouter(DetailPage);
+export default withRouter(memo(DetailPage));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import blueLogo from '../img/svg/powered-by-square-blue.svg';
 import greenLogo from '../img/svg/powered-by-square-green.svg';
 import { IconButton } from '@material-ui/core';
@@ -7,7 +7,7 @@ import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/AttributionStyles';
 import useLocalStorageToggle from '../hooks/useLocalStorageToggle';
 
-export default function Attribution() {
+const Attribution = () => {
   const [show, handleShow] = useLocalStorageToggle(false, 'showAttribution');
   const classes = styles(show)();
   const { changed } = useThemeValue();
@@ -28,4 +28,6 @@ export default function Attribution() {
       </IconButton>
     </div>
   );
-}
+};
+
+export default memo(Attribution);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -19,6 +19,10 @@ const TopBar = ({ searchMovie, showMiniCards, history }) => {
 
   const handleRedirectHome = () => {
     history.push('/');
+  };
+
+  const handleFocus = () => {
+    showMiniCards(true);
   };
 
   return (
@@ -57,7 +61,7 @@ const TopBar = ({ searchMovie, showMiniCards, history }) => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              onFocus={() => showMiniCards(true)}
+              onFocus={handleFocus}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
@@ -67,4 +71,4 @@ const TopBar = ({ searchMovie, showMiniCards, history }) => {
     </div>
   );
 };
-export default withRouter(TopBar);
+export default withRouter(memo(TopBar));

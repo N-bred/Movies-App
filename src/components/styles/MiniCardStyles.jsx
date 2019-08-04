@@ -14,7 +14,10 @@ const styles = (changed, transition, backgroundPaper, posterUrl) => {
         width: '100%'
       },
       '& button': {
-        background: `url(https://image.tmdb.org/t/p/w500${posterUrl}) no-repeat`,
+        background:
+          posterUrl === false
+            ? 'transparent'
+            : `url(https://image.tmdb.org/t/p/w500${posterUrl}) no-repeat`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }

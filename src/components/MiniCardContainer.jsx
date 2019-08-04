@@ -19,8 +19,16 @@ export default function MiniCardContainer({
     showMiniCards(true);
   };
 
+  const handleMouseLeave = () => {
+    showMiniCards(false);
+  };
+
   return (
-    <List className={classes.root} onMouseOver={handleMouseOver} onMouseLeave={() => showMiniCards(false)}>
+    <List
+      className={classes.root}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
       {loading ? (
         <LoadingSpinner small />
       ) : showErrorNotFound ? (
@@ -39,7 +47,6 @@ export default function MiniCardContainer({
                 id={movie.id}
                 description={shortenText(movie.overview, 100)}
                 selectMovie={selectMovie}
-                handleMouseOver={handleMouseOver}
               />
             </ListItem>
             <Divider

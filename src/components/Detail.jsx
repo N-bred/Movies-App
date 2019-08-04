@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TopBar from './TopBar';
 import TabsCom from './Tabs';
 import Attribution from './Attribution';
@@ -15,7 +15,7 @@ import {
 } from '../API';
 import { convertMoney, minToHours } from '../utils';
 
-class Detail extends Component {
+class Detail extends PureComponent {
   static defaultProps = {
     countries: [{ name: 'United States' }],
     genres: [{ name: 'horror' }]
