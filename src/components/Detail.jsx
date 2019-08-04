@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import TopBar from './TopBar';
-import MovieList from './MovieList';
 import TabsCom from './Tabs';
-import InputContainer from './InputContainer';
 import Attribution from './Attribution';
 import MiniCardContainer from './MiniCardContainer';
-// import DetailPage from './DetailPage';
+import DetailPage from './DetailPage';
 import LoadingSpinner from './LoadingSpinner';
 import { makeRequest } from '../utils';
 import { Theme } from '../contexts/theme.context';
 import {
   API_KEY,
   discoverEndpoint,
-  genreEndpoint,
-  searchEndpoint
+  searchEndpoint,
+  movieDetailEndpoint
 } from '../API';
+import { convertMoney, minToHours } from '../utils';
 
-class Main extends Component {
+class Detail extends Component {
+  static defaultProps = {
+    countries: [{ name: 'United States' }],
+    genres: [{ name: 'horror' }]
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
-      genres: [],
       selectedGenre: '',
       loading: false,
       showNotFound: false,
@@ -34,38 +37,19 @@ class Main extends Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    const movieRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
-    movieRequest
-      .then(data => this.setState({ movies: data.results }))
-      .catch(err => console.log(err));
 
-    const genresRequest = makeRequest(
-      `${genreEndpoint}${API_KEY}&language=en-US`
+    const { params } = this.props.match;
+    const movieRequest = makeRequest(
+      `${movieDetailEndpoint}${params.id}?${API_KEY}`
     );
-    genresRequest
-      .then(data => this.setState({ genres: data.genres }))
+    movieRequest
+      .then(data => this.setState({ movies: data }))
       .catch(err => console.log(err));
 
     setTimeout(() => {
       this.setState(() => ({ loading: false }));
     }, 3000);
   }
-
-  selectGenre = value => {
-    this.setState({ selectedGenre: value, loading: true });
-
-    const genreRequest = makeRequest(
-      `${discoverEndpoint}${API_KEY}&sort_by=popularity.desc&with_genres=${value}`
-    );
-
-    genreRequest
-      .then(data => this.setState(() => ({ movies: data.results })))
-      .catch(err => console.log(err));
-
-    setTimeout(() => {
-      this.setState(() => ({ loading: false }));
-    }, 3000);
-  };
 
   searchMovie = e => {
     this.setState({ loading: true });
@@ -98,30 +82,24 @@ class Main extends Component {
         })
         .catch(err => console.log(err));
     }
-
-    this._typingTimeout = setTimeout(() => {
-      this.setState(() => ({ loading: false }));
-    }, 2500);
   };
 
-  showMiniCards = val => {
-    this.setState({ showingMiniCards: val || !this.state.showingMiniCards });
+  showMiniCards = () => {
+    this.setState({ showingMiniCards: !this.state.showingMiniCards });
   };
+
   render() {
     const { changed, backgroundMain, transition } = this.context;
-    const {
-      movies,
-      loading,
-      genres,
-      selectedGenre,
-      showNotFound,
-      showingMiniCards
-    } = this.state;
+    const { movies, loading, showNotFound, showingMiniCards } = this.state;
+    const { countries: countriesFB, genres: genresFB } = this.props;
+
     return (
       <div
         style={{
           transition,
-          background: changed && backgroundMain
+          background: changed && backgroundMain,
+          minHeight: '100vh',
+          overflow: 'hidden'
         }}
       >
         <TopBar
@@ -133,21 +111,27 @@ class Main extends Component {
             loading={loading}
             movies={movies}
             showErrorNotFound={showNotFound}
-            showMiniCards={this.showMiniCards}
           />
         )}
 
         <TabsCom />
-        <InputContainer
-          genres={genres}
-          selectGenre={this.selectGenre}
-          selectedGenre={selectedGenre}
-        />
 
         {loading ? (
           <LoadingSpinner />
         ) : (
-          <MovieList movies={movies} showErrorNotFound={showNotFound} />
+          <DetailPage
+            title={movies.original_title}
+            tagline={movies.tagline}
+            date={movies.release_date}
+            duration={minToHours(movies.runtime)}
+            description={movies.overview}
+            countries={movies.production_countries || countriesFB}
+            budget={convertMoney(movies.budget)}
+            revenue={convertMoney(movies.revenue)}
+            genres={movies.genres || genresFB}
+            posterUrl={movies.poster_path}
+            imdbId={movies.imdb_id}
+          />
         )}
         <Attribution />
       </div>
@@ -155,4 +139,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default Detail;

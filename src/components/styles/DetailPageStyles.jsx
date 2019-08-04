@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const styles = (changed, transition, backgroundPaper) => {
+const styles = (changed, transition, backgroundPaper, posterUrl) => {
   return makeStyles(theme => ({
     card: {
       minWidth: 275,
@@ -28,8 +28,7 @@ const styles = (changed, transition, backgroundPaper) => {
     },
     background: {
       flex: '0 0 30%',
-      background:
-        'url(https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg) no-repeat',
+      background: `url(https://image.tmdb.org/t/p/w500/${posterUrl}) no-repeat`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       borderRadius: 4,

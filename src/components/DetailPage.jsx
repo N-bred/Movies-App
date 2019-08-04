@@ -14,9 +14,21 @@ import {
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/DetailPageStyles';
 
-export default function SimpleCard() {
+export default function SimpleCard({
+  title,
+  tagline,
+  date,
+  duration,
+  description,
+  countries,
+  budget,
+  revenue,
+  genres,
+  posterUrl,
+  imdbId
+}) {
   const { changed, transition, backgroundPaper } = useThemeValue();
-  const classes = styles(changed, transition, backgroundPaper)();
+  const classes = styles(changed, transition, backgroundPaper, posterUrl)();
 
   return (
     <Paper className={classes.paper}>
@@ -31,7 +43,7 @@ export default function SimpleCard() {
             variant="h1"
             component="h1"
           >
-            Spider-Man: Into the Spider-Verse
+            {title}
           </Typography>
           <Typography
             variant="h4"
@@ -39,7 +51,7 @@ export default function SimpleCard() {
             color="textSecondary"
             className={classes.tagname}
           >
-            More Than One Wears the Mask
+            {tagline}
           </Typography>
 
           <Typography
@@ -48,7 +60,7 @@ export default function SimpleCard() {
             color="textSecondary"
             className={classes.date}
           >
-            Release date: 27/06/2006
+            Release date: {date}
           </Typography>
 
           <Typography
@@ -56,7 +68,7 @@ export default function SimpleCard() {
             color="textSecondary"
             variant="body1"
           >
-            Duration: 2h 5min
+            Duration: {duration}
           </Typography>
           <Typography
             variant="h5"
@@ -64,10 +76,7 @@ export default function SimpleCard() {
             color="textSecondary"
             className={classes.description}
           >
-            Description: "Miles Morales is juggling his life between being a
-            high school student and being a spider-man. When Wilson "Kingpin"
-            Fisk uses a super collider, others from across the Spider-Verse are
-            transported to this dimension."
+            Description: {description}
           </Typography>
 
           <Typography
@@ -80,20 +89,22 @@ export default function SimpleCard() {
           </Typography>
 
           <List>
-            <ListItem className={classes.listItem}>
-              <ListItemIcon className={classes.listIcon}>
-                <svg
-                  className={classes.icon}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z" />
-                </svg>
-              </ListItemIcon>
-              <ListItemText primary="Colombia" color="textSecondary" />
-            </ListItem>
+            {countries.map(country => (
+              <ListItem key={country.name} className={classes.listItem}>
+                <ListItemIcon className={classes.listIcon}>
+                  <svg
+                    className={classes.icon}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z" />
+                  </svg>
+                </ListItemIcon>
+                <ListItemText primary={country.name} color="textSecondary" />
+              </ListItem>
+            ))}
           </List>
 
           <Typography
@@ -102,17 +113,20 @@ export default function SimpleCard() {
             color="textSecondary"
             className={classes.tagname}
           >
-            Budget: 50.000.000 USD - Revenue: 9.000.000 USD
+            Budget: {budget} USD - Revenue: {revenue} USD
           </Typography>
         </CardContent>
         <CardActions className={classes.cardActions}>
-          <Button size="small">Horror</Button>
-          <Button size="small">Horror</Button>
+          {genres.map(genre => (
+            <Button key={genre.name} size="small">
+              {genre.name}
+            </Button>
+          ))}
 
           <Button
             size="small"
             component="a"
-            href="https://google.com"
+            href={`https://www.imdb.com/title/${imdbId}`}
             target="_blank"
             style={{ marginLeft: 'auto' }}
           >

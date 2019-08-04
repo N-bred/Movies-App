@@ -9,13 +9,17 @@ import { shortenText } from '../utils';
 export default function MiniCardContainer({
   loading,
   movies,
-  showErrorNotFound
+  showErrorNotFound,
+  showMiniCards
 }) {
   const { changed, transition, backgroundMain } = useThemeValue();
   const classes = styles(changed, transition, backgroundMain)();
+  const handleMouseOver = () => {
+    showMiniCards(true);
+  };
 
   return (
-    <List className={classes.root}>
+    <List className={classes.root} onMouseOver={handleMouseOver}>
       {loading ? (
         <LoadingSpinner small />
       ) : showErrorNotFound ? (
@@ -31,6 +35,7 @@ export default function MiniCardContainer({
               <MiniCard
                 title={movie.title}
                 posterUrl={movie.poster_path}
+                id={movie.id}
                 description={shortenText(movie.overview, 100)}
               />
             </ListItem>

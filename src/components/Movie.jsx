@@ -12,17 +12,21 @@ import {
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/MovieStyles';
+import { withRouter } from 'react-router-dom';
 
-export default function Movie({ title, posterUrl, description }) {
+const Movie = ({ title, posterUrl, description, history, id }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper)();
+  const handlePushRoute = () => {
+    history.push(`/movie/${id}`);
+  };
 
   return (
     <Card className={classes.card}>
       <IconButton aria-label="add to favorites" className={classes.favorite}>
         <FavoriteIcon />
       </IconButton>
-      <CardActionArea>
+      <CardActionArea onClick={handlePushRoute}>
         <CardMedia
           className={classes.media}
           image={`https://image.tmdb.org/t/p/w500${posterUrl}`}
@@ -59,4 +63,5 @@ export default function Movie({ title, posterUrl, description }) {
       </CardActions>
     </Card>
   );
-}
+};
+export default withRouter(Movie);

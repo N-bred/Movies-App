@@ -7,14 +7,20 @@ import {
 } from '@material-ui/core';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/MiniCardStyles';
+import { withRouter } from 'react-router-dom';
 
-export default function DetailPage({ title, posterUrl, description }) {
+const MiniCard = ({ title, posterUrl, description, history, id }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper, posterUrl)();
-
+  const handlePushRoute = () => {
+    history.push(`/movie/${id}`);
+  };
   return (
     <Card className={classes.card}>
-      <CardActionArea className={classes.buttonContainer} />
+      <CardActionArea
+        onClick={handlePushRoute}
+        className={classes.buttonContainer}
+      />
       <CardContent className={classes.contentContainer}>
         <Typography gutterBottom variant="h4" component="h2">
           {title}
@@ -30,4 +36,6 @@ export default function DetailPage({ title, posterUrl, description }) {
       </CardContent>
     </Card>
   );
-}
+};
+
+export default withRouter(MiniCard);

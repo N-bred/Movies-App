@@ -3,10 +3,12 @@ const discoverEndpoint = 'https://api.themoviedb.org/3/discover/movie?';
 const searchEndpoint = 'https://api.themoviedb.org/3/search/movie?query=';
 const genreEndpoint = 'https://api.themoviedb.org/3/genre/movie/list?';
 const posterEndpoint = 'https://image.tmdb.org/t/p/w500/';
+const movieDetailEndpoint = 'https://api.themoviedb.org/3/movie/';
 export {
   API_KEY,
   genreEndpoint,
   discoverEndpoint,
   searchEndpoint,
-  posterEndpoint
+  posterEndpoint,
+  movieDetailEndpoint
 };
