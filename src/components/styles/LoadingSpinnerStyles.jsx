@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const styles = changed => {
+const styles = (changed, small) => {
   return makeStyles(theme => ({
     '@keyframes lds-roller': {
       '0%': {
@@ -11,7 +11,7 @@ const styles = changed => {
       }
     },
     container: {
-      minHeight: '90vh',
+      minHeight: small ? '50vh' : '80vh',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'

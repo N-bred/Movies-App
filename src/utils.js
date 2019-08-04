@@ -4,6 +4,6 @@ const makeRequest = async url => {
   return response;
 };
 
-const shortenText = text => `${text.substring(0, 155)}...`;
+const shortenText = (text, length = 155) => `${text.substring(0, length)}...`;
 
 export { makeRequest, shortenText };

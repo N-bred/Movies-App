@@ -8,16 +8,16 @@ import {
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/MiniCardStyles';
 
-export default function DetailPage() {
+export default function DetailPage({ title, posterUrl, description }) {
   const { changed, transition, backgroundPaper } = useThemeValue();
-  const classes = styles(changed, transition, backgroundPaper)();
+  const classes = styles(changed, transition, backgroundPaper, posterUrl)();
 
   return (
     <Card className={classes.card}>
       <CardActionArea className={classes.buttonContainer} />
       <CardContent className={classes.contentContainer}>
         <Typography gutterBottom variant="h4" component="h2">
-          Lizard
+          {title}
         </Typography>
         <Typography
           className={classes.content}
@@ -25,7 +25,7 @@ export default function DetailPage() {
           color="textSecondary"
           component="p"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit...
+          {description}
         </Typography>
       </CardContent>
     </Card>

@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/TopBarStyles';
 
-const TopBar = () => {
+const TopBar = ({ searchMovie }) => {
   const { changed, handleChange, transition } = useThemeValue();
   const classes = styles(transition)();
 
@@ -42,6 +42,7 @@ const TopBar = () => {
             </div>
             <InputBase
               placeholder="Search…"
+              onChange={searchMovie}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput

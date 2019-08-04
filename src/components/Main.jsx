@@ -4,20 +4,30 @@ import MovieList from './MovieList';
 import TabsCom from './Tabs';
 import InputContainer from './InputContainer';
 import Attribution from './Attribution';
-// import MiniCardContainer from './MiniCardContainer';
+import MiniCardContainer from './MiniCardContainer';
 // import DetailPage from './DetailPage';
 import LoadingSpinner from './LoadingSpinner';
 import { makeRequest } from '../utils';
 import { Theme } from '../contexts/theme.context';
-import { API_KEY, discoverEndpoint, genreEndpoint } from '../API';
+import {
+  API_KEY,
+  discoverEndpoint,
+  genreEndpoint,
+  searchEndpoint
+} from '../API';
 
 class Main extends Component {
-  state = {
-    movies: [],
-    genres: [],
-    selectedGenre: '',
-    loading: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: [],
+      genres: [],
+      selectedGenre: '',
+      loading: false,
+      showNotFound: false
+    };
+    this._typingTimeout = 0;
+  }
 
   static contextType = Theme;
 
@@ -56,9 +66,44 @@ class Main extends Component {
     }, 3000);
   };
 
+  searchMovie = e => {
+    this.setState({ loading: true });
+    if (this._typingTimeout) clearTimeout(this._typingTimeout);
+
+    if (e.target.value.length <= 2) {
+      const movieRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
+      movieRequest
+        .then(data => this.setState({ movies: data.results }))
+        .catch(err => console.log(err));
+    }
+
+    if (e.target.value.length >= 3) {
+      const searchRequest = makeRequest(
+        `${searchEndpoint}${e.target.value}&${API_KEY}`
+      );
+
+      searchRequest
+        .then(data => {
+          if (data.results.length > 1) {
+            this.setState(() => ({
+              movies: data.results,
+              showNotFound: false
+            }));
+          } else {
+            this.setState(() => ({ showNotFound: true }));
+          }
+        })
+        .catch(err => console.log(err));
+    }
+
+    this._typingTimeout = setTimeout(() => {
+      this.setState(() => ({ loading: false }));
+    }, 2500);
+  };
+
   render() {
     const { changed, backgroundMain, transition } = this.context;
-    const { movies, loading, genres, selectedGenre } = this.state;
+    const { movies, loading, genres, selectedGenre, showNotFound } = this.state;
     return (
       <div
         style={{
@@ -66,14 +111,24 @@ class Main extends Component {
           background: changed && backgroundMain
         }}
       >
-        <TopBar />
+        <TopBar searchMovie={this.searchMovie} />
+        <MiniCardContainer
+          loading={loading}
+          movies={movies}
+          showErrorNotFound={showNotFound}
+        />
         <TabsCom />
         <InputContainer
           genres={genres}
           selectGenre={this.selectGenre}
           selectedGenre={selectedGenre}
         />
-        {loading ? <LoadingSpinner /> : <MovieList movies={movies} />}
+
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <MovieList movies={movies} showErrorNotFound={showNotFound} />
+        )}
         <Attribution />
       </div>
     );

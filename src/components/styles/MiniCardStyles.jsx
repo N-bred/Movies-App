@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const styles = (changed, transition, backgroundPaper) => {
+const styles = (changed, transition, backgroundPaper, posterUrl) => {
   return makeStyles({
     card: {
       maxWidth: 350,
@@ -9,8 +9,7 @@ const styles = (changed, transition, backgroundPaper) => {
       background: changed && backgroundPaper,
       transition,
       '& button': {
-        background:
-          'url(https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg) no-repeat',
+        background: `url(https://image.tmdb.org/t/p/w500${posterUrl}) no-repeat`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }

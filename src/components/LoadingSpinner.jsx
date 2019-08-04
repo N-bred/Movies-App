@@ -2,9 +2,9 @@ import React from 'react';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/LoadingSpinnerStyles';
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ small }) => {
   const { changed } = useThemeValue();
-  const classes = styles(changed)();
+  const classes = styles(changed, small)();
   return (
     <div className={classes.container}>
       <div className={classes.ldsRoller}>
