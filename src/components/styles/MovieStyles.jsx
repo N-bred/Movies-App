@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const styles = (changed, transition, backgroundPaper) => {
+const styles = (changed, transition, backgroundPaper, marked) => {
   return makeStyles({
     card: {
       maxWidth: '100%',
@@ -34,8 +34,7 @@ const styles = (changed, transition, backgroundPaper) => {
       },
 
       '& svg path': {
-        fill: '#fff'
-        //   fill: '#de4536'
+        fill: marked ? '#de4536' : '#fff'
       }
     },
     cardActions: {

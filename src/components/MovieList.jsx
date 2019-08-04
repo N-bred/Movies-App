@@ -33,6 +33,7 @@ const MovieList = ({ movies, showErrorNotFound }) => {
                 posterUrl={movie.poster_path}
                 description={shortenText(movie.overview)}
                 id={movie.id}
+                movie={movie}
               />
             </Grid>
           ))}

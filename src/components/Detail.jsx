@@ -163,6 +163,8 @@ class Detail extends Component {
             genres={movies.genres || genresFB}
             posterUrl={movies.poster_path}
             imdbId={movies.imdb_id}
+            id={movies.id}
+            movie={movies}
           />
         )}
         <Attribution />

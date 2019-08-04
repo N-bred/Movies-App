@@ -4,14 +4,23 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SearchIcon from '@material-ui/icons/Search';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/TabsStyles';
+import { withRouter } from 'react-router-dom';
 
-const TabsCom = () => {
+const TabsCom = ({ history, location }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
   const classes = styles(changed, transition, backgroundPaper)();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(
+    location.pathname === '/favorites' ? 1 : 0
+  );
 
   function handleChange(event, newValue) {
     setValue(newValue);
+
+    if (newValue === 0) {
+      history.push('/');
+    } else {
+      history.push('/favorites');
+    }
   }
 
   return (
@@ -31,4 +40,4 @@ const TabsCom = () => {
     </Paper>
   );
 };
-export default TabsCom;
+export default withRouter(TabsCom);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardActionArea,
@@ -11,19 +11,44 @@ import {
 } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useThemeValue } from '../contexts/theme.context';
+import { useFavorites } from '../contexts/favorites.context';
 import styles from './styles/MovieStyles';
 import { withRouter } from 'react-router-dom';
 
-const Movie = ({ title, posterUrl, description, history, id }) => {
+const Movie = ({ title, posterUrl, description, history, id, movie }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
-  const classes = styles(changed, transition, backgroundPaper)();
+  const { addFavorite, removeFavorite, favorites } = useFavorites();
+
+  const initialValue = favorites.find(favorite => favorite.id === id);
+
+  const [marked, setMarked] = useState(initialValue);
+
+  const toggleMarked = () => {
+    setMarked(!marked);
+  };
+
+  const handleClick = () => {
+    toggleMarked();
+
+    if (marked) {
+      removeFavorite(movie.id);
+    } else {
+      addFavorite(movie);
+    }
+  };
+
+  const classes = styles(changed, transition, backgroundPaper, marked)();
   const handlePushRoute = () => {
     history.push(`/movie/${id}`);
   };
 
   return (
     <Card className={classes.card}>
-      <IconButton aria-label="add to favorites" className={classes.favorite}>
+      <IconButton
+        aria-label="add to favorites"
+        className={classes.favorite}
+        onClick={handleClick}
+      >
         <FavoriteIcon />
       </IconButton>
       <CardActionArea onClick={handlePushRoute}>
@@ -57,6 +82,7 @@ const Movie = ({ title, posterUrl, description, history, id }) => {
           color={changed ? 'secondary' : 'primary'}
           className={classes.button}
           fullWidth
+          onClick={handlePushRoute}
         >
           See More...
         </Button>

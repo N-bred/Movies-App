@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   List,
   ListItem,
@@ -9,11 +9,14 @@ import {
   Button,
   CardContent,
   CardActions,
-  Card
+  Card,
+  IconButton
 } from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/DetailPageStyles';
 import { withRouter } from 'react-router-dom';
+import { useFavorites } from '../contexts/favorites.context';
 
 const DetailPage = ({
   title,
@@ -27,16 +30,52 @@ const DetailPage = ({
   genres,
   posterUrl,
   imdbId,
-  history
+  history,
+  id,
+  movie
 }) => {
   const { changed, transition, backgroundPaper } = useThemeValue();
-  const classes = styles(changed, transition, backgroundPaper, posterUrl)();
+
+  const { addFavorite, removeFavorite, favorites } = useFavorites();
+
+  const initialValue = favorites.find(favorite => favorite.id === id);
+
+  const [marked, setMarked] = useState(initialValue);
+
+  const classes = styles(
+    changed,
+    transition,
+    backgroundPaper,
+    posterUrl,
+    marked
+  )();
+
+  const toggleMarked = () => {
+    setMarked(!marked);
+  };
+
+  const handleClick = () => {
+    toggleMarked();
+
+    if (marked) {
+      removeFavorite(movie.id);
+    } else {
+      addFavorite(movie);
+    }
+  };
 
   return (
     <Paper className={classes.paper}>
       <div className={classes.background} />
 
       <Card className={classes.card}>
+        <IconButton
+          aria-label="add to favorites"
+          className={classes.favorite}
+          onClick={handleClick}
+        >
+          <FavoriteIcon />
+        </IconButton>
         <CardContent>
           <Typography
             className={classes.title}

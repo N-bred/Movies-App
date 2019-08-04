@@ -23,7 +23,9 @@ const MiniCard = ({
   const handlePushRoute = () => {
     handleMouseOver();
     history.push(`/movie/${id}`);
-    selectMovie(id);
+    if (selectMovie) {
+      selectMovie(id);
+    }
   };
   return (
     <Card className={classes.card}>

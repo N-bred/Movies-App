@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const styles = (changed, transition, backgroundPaper, posterUrl) => {
+const styles = (changed, transition, backgroundPaper, posterUrl, marked) => {
   return makeStyles(theme => ({
     card: {
       minWidth: 275,
@@ -89,6 +89,18 @@ const styles = (changed, transition, backgroundPaper, posterUrl) => {
     },
     tagname: {
       color: changed && '#fff'
+    },
+    favorite: {
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      background: changed ? 'rgba(255,255,255,.3)' : 'rgba(0,0,0,.3)',
+      '&:hover': {
+        background: changed ? 'rgba(255,255,255,.15)' : 'rgba(0,0,0,.15)'
+      },
+      '& svg path': {
+        fill: marked ? '#de4536' : '#fff'
+      }
     }
   }));
 };
