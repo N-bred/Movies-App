@@ -12,7 +12,8 @@ const styles = transition => {
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'block'
-      }
+      },
+      cursor: 'pointer'
     },
     search: {
       position: 'relative',

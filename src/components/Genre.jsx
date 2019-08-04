@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 import TopBar from './TopBar';
 import MovieList from './MovieList';
 import TabsCom from './Tabs';
@@ -16,7 +17,7 @@ import {
   searchEndpoint
 } from '../API';
 
-class Main extends Component {
+class Genre extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +35,12 @@ class Main extends Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    const movieRequest = makeRequest(`${discoverEndpoint}${API_KEY}`);
+    const { params } = this.props.match;
+    const movieRequest = makeRequest(
+      `${discoverEndpoint}${API_KEY}&sort_by=popularity.desc&with_genres=${
+        params.id
+      }`
+    );
     movieRequest
       .then(data => this.setState({ movies: data.results }))
       .catch(err => console.log(err));
@@ -43,13 +49,39 @@ class Main extends Component {
       `${genreEndpoint}${API_KEY}&language=en-US`
     );
     genresRequest
-      .then(data => this.setState({ genres: data.genres }))
+      .then(data => {
+        const id = Number(this.props.match.params.id);
+
+        const finded = data.genres.find(genre => genre.id === id);
+
+        this.setState(() => ({
+          genres: data.genres,
+          selectedGenre: finded.name
+        }));
+      })
       .catch(err => console.log(err));
 
     setTimeout(() => {
       this.setState(() => ({ loading: false }));
     }, 3000);
   }
+
+  selectGenre = value => {
+    const finded = this.state.genres.find(genre => genre.id === value);
+    this.setState({ selectedGenre: finded.name, loading: true });
+
+    const genreRequest = makeRequest(
+      `${discoverEndpoint}${API_KEY}&sort_by=popularity.desc&with_genres=${value}`
+    );
+
+    genreRequest
+      .then(data => this.setState(() => ({ movies: data.results })))
+      .catch(err => console.log(err));
+
+    setTimeout(() => {
+      this.setState(() => ({ loading: false }));
+    }, 3000);
+  };
 
   searchMovie = e => {
     this.setState({ loading: true });
@@ -98,13 +130,15 @@ class Main extends Component {
       loading,
       genres,
       showNotFound,
-      showingMiniCards
+      showingMiniCards,
+      selectedGenre
     } = this.state;
     return (
       <div
         style={{
           transition,
-          background: changed && backgroundMain
+          background: changed && backgroundMain,
+          minHeight: '100vh'
         }}
       >
         <TopBar
@@ -121,7 +155,15 @@ class Main extends Component {
         )}
 
         <TabsCom />
-        <InputContainer genres={genres} />
+        <InputContainer genres={genres} selectGenre={this.selectGenre} />
+
+        <Typography
+          color={changed ? 'secondary' : 'primary'}
+          variant="h2"
+          align="center"
+        >
+          {selectedGenre}
+        </Typography>
 
         {loading ? (
           <LoadingSpinner />
@@ -134,4 +176,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default Genre;

@@ -11,10 +11,15 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/TopBarStyles';
+import { withRouter } from 'react-router-dom';
 
-const TopBar = ({ searchMovie, showMiniCards }) => {
+const TopBar = ({ searchMovie, showMiniCards, history }) => {
   const { changed, handleChange, transition } = useThemeValue();
   const classes = styles(transition)();
+
+  const handleRedirectHome = () => {
+    history.push('/');
+  };
 
   return (
     <div className={classes.root}>
@@ -24,7 +29,12 @@ const TopBar = ({ searchMovie, showMiniCards }) => {
         color={changed ? 'secondary' : 'primary'}
       >
         <Toolbar>
-          <Typography className={classes.title} variant="h4" noWrap>
+          <Typography
+            className={classes.title}
+            variant="h4"
+            noWrap
+            onClick={handleRedirectHome}
+          >
             Movies!
           </Typography>
 
@@ -58,4 +68,4 @@ const TopBar = ({ searchMovie, showMiniCards }) => {
     </div>
   );
 };
-export default TopBar;
+export default withRouter(TopBar);

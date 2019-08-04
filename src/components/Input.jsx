@@ -9,8 +9,9 @@ import {
 } from '@material-ui/core';
 import { useThemeValue } from '../contexts/theme.context';
 import styles from './styles/InputStyles';
+import { withRouter } from 'react-router-dom';
 
-export default function SimpleSelect({ genres, selectGenre }) {
+const SimpleSelect = ({ genres, history, selectGenre }) => {
   const { changed } = useThemeValue();
   const classes = styles(changed)();
   const [values, setValues] = React.useState({
@@ -23,7 +24,11 @@ export default function SimpleSelect({ genres, selectGenre }) {
       [event.target.name]: event.target.value
     }));
 
-    selectGenre(event.target.value);
+    if (selectGenre) {
+      selectGenre(event.target.value);
+    }
+
+    history.push(`/genre/${event.target.value}`);
   }
 
   return (
@@ -55,4 +60,6 @@ export default function SimpleSelect({ genres, selectGenre }) {
       </FormControl>
     </form>
   );
-}
+};
+
+export default withRouter(SimpleSelect);
