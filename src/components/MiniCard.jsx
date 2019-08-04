@@ -34,7 +34,12 @@ const MiniCard = ({
         className={classes.buttonContainer}
       />
       <CardContent className={classes.contentContainer}>
-        <Typography gutterBottom variant="h4" component="h2">
+        <Typography
+          gutterBottom
+          variant="h4"
+          component="h2"
+          className={classes.title}
+        >
           {title}
         </Typography>
         <Typography

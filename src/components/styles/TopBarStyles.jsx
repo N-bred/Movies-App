@@ -9,10 +9,8 @@ const styles = transition => {
     },
 
     title: {
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block'
-      },
+      display: 'block',
+
       cursor: 'pointer'
     },
     search: {
@@ -64,7 +62,14 @@ const styles = transition => {
     },
     toolbar: theme.mixins.toolbar,
     appbar: {
-      transition
+      transition,
+      flexDirection: 'column'
+    },
+    toolbarTop: {
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+        padding: '2rem'
+      }
     }
   }));
 };

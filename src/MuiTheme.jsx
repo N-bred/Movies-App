@@ -1,5 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const defaultTheme = createMuiTheme();
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -7,6 +9,16 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#f6b906'
+    }
+  },
+  mixins: {
+    toolbar: {
+      [defaultTheme.breakpoints.up('sm')]: {
+        minHeight: defaultTheme.mixins.toolbar.minHeight
+      },
+      [defaultTheme.breakpoints.down('sm')]: {
+        minHeight: '140px'
+      }
     }
   }
 });

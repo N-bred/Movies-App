@@ -28,7 +28,7 @@ const TopBar = ({ searchMovie, showMiniCards, history }) => {
         className={classes.appBar}
         color={changed ? 'secondary' : 'primary'}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolbarTop}>
           <Typography
             className={classes.title}
             variant="h4"

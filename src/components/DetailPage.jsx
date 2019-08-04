@@ -173,7 +173,7 @@ const DetailPage = ({
             component="a"
             href={`https://www.imdb.com/title/${imdbId}`}
             target="_blank"
-            style={{ marginLeft: 'auto' }}
+            className={classes.imdb}
           >
             IMDB
           </Button>
