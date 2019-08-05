@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Movies-App/static/css/main.07ee0325.chunk.css",
-    "main.js": "/Movies-App/static/js/main.e5634e90.chunk.js",
-    "main.js.map": "/Movies-App/static/js/main.e5634e90.chunk.js.map",
-    "runtime~main.js": "/Movies-App/static/js/runtime~main.8d416b0d.js",
-    "runtime~main.js.map": "/Movies-App/static/js/runtime~main.8d416b0d.js.map",
-    "static/js/2.188a3839.chunk.js": "/Movies-App/static/js/2.188a3839.chunk.js",
-    "static/js/2.188a3839.chunk.js.map": "/Movies-App/static/js/2.188a3839.chunk.js.map",
-    "index.html": "/Movies-App/index.html",
-    "precache-manifest.c12f3e68acf4873e27dd06c281426ec9.js": "/Movies-App/precache-manifest.c12f3e68acf4873e27dd06c281426ec9.js",
-    "service-worker.js": "/Movies-App/service-worker.js",
-    "static/css/main.07ee0325.chunk.css.map": "/Movies-App/static/css/main.07ee0325.chunk.css.map",
-    "static/media/powered-by-square-blue.svg": "/Movies-App/static/media/powered-by-square-blue.ef94b967.svg",
-    "static/media/powered-by-square-green.svg": "/Movies-App/static/media/powered-by-square-green.281f6d24.svg"
+    "main.css": "/cyber-movies/static/css/main.07ee0325.chunk.css",
+    "main.js": "/cyber-movies/static/js/main.7bb4f87a.chunk.js",
+    "main.js.map": "/cyber-movies/static/js/main.7bb4f87a.chunk.js.map",
+    "runtime~main.js": "/cyber-movies/static/js/runtime~main.0d5aee4c.js",
+    "runtime~main.js.map": "/cyber-movies/static/js/runtime~main.0d5aee4c.js.map",
+    "static/js/2.188a3839.chunk.js": "/cyber-movies/static/js/2.188a3839.chunk.js",
+    "static/js/2.188a3839.chunk.js.map": "/cyber-movies/static/js/2.188a3839.chunk.js.map",
+    "index.html": "/cyber-movies/index.html",
+    "precache-manifest.f671816a59a0220fad082d423808c641.js": "/cyber-movies/precache-manifest.f671816a59a0220fad082d423808c641.js",
+    "service-worker.js": "/cyber-movies/service-worker.js",
+    "static/css/main.07ee0325.chunk.css.map": "/cyber-movies/static/css/main.07ee0325.chunk.css.map",
+    "static/media/powered-by-square-blue.svg": "/cyber-movies/static/media/powered-by-square-blue.ef94b967.svg",
+    "static/media/powered-by-square-green.svg": "/cyber-movies/static/media/powered-by-square-green.281f6d24.svg"
   }
 }
